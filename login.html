@@ -1,0 +1,31 @@
+<!--
+    Login page leading to the UATSpace.html page
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Welcome to the UATSpace login Page!
+        </title>
+        <script src ="loginCode.js"></script>           <!--the login.html page is linked to loginCode.js-->
+        <link rel="stylesheet" href="loginStyle.css">   <!--the login.html page is linked to loginStyle.css-->
+    </head>
+    <body>
+        <h1>
+            Welcome to the UATSpace login Page!     <!--text displayed on the page, it is in h1 font-->
+        </h1>
+        <h2>Please log in below:</h2>   <!--text displayed on the page, it is in h2 font-->
+        <br>
+        <div id="loginStatus">Login Status</div><br>    <!--gives the text Login Status the id of loginstatus-->
+        <br>
+        <br>
+        <form id="creditSubmit" onsubmit="return false">        <!--the id creditSubmit is returned as false upon submitting-->
+        First Name: <input type="text" id="fName"> <br>         <!--text displayed with an input box for text, upon submitting text, the text submitted is given the id of fName-->
+        Last Name: <input type="text" id="lName"> <br>          <!--text displayed with an input box for text, upon submitting text, the text submitted is given the id of lName-->
+        Badge Number: <input type="number" id="badgeID"> <br>   <!--text displayed with an input box for numbers only, upon selecting a number, the number submitted is given the id of badgeID-->
+        <br>
+        <input type="submit" onclick="creditCheck();">          <!--a submit input which calls upon the function creditCheck() upon clikcing it-->
+        </form>
+
+    </body>
+</html>

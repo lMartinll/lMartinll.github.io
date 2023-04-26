@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+    This is my UAT Space Page
+    It was created in my CSC102 class from Spring 2023
+    This is the final iteration of my project
+
+    created by:
+    Martin Rios
+    MARRIOS1@uat.edu
+-->
+<html>
+
+<head>
+    <!--This is the head,
+    It is where all the behind the background stuff goes on-->
+    <title>
+        Prof. Prater's UATSpace page
+    </title>
+    <!--The script lines begin here, they are meant to attach and call other javascript and css files to this html file-->
+    <!--attaches the code.js file to the main UATSpace.html file-->
+    <script src="code.js"></script>
+    <!--attaches the class.js file to the main UATSpace.html file-->
+    <script src="class.js"></script>
+    <!--attaches the dataLoader.js file to the main UATSpace.html file-->
+    <script src="dataLoader.js"></script>
+    <!--attaches the style.css file to the main UATSpace.html file-->
+    <link rel="stylesheet" href="style.css">
+    <!--script lines end here, also <link> is used for css-->
+    <!--the below script lines are for variables-->
+    <script>
+        //variables for running updateData()
+        //this variable assigns "theTime" to a date object
+        var theTime = new Date();
+        //this variable assigns "timeinterval" to 5000 milliseconds (or 5 seconds)
+        var timeInterval = 5000;
+        //this line creates the variable "lastIterations" and gives it a value of 0
+        var lastIteration = 0;
+        //this line creates a variable called "running" and sets it to true
+        var running = true;
+        //this line creates a variable called "index" and assigns it a variable of 0
+        var index = 0;
+        //this line creates the variable "timer"
+        var timer;
+        //this line assigns the fuction getData() to the created variable of "data"
+        var data = getData();
+    </script>
+    <!--the below css style script gives the html page a background color that of a very light blue-->
+    <style>
+        body {
+            background-color: rgb(186, 211, 226);
+        }
+    </style>
+</head>
+<body>
+    <table>     <!--table so picture can be next to the welcome text-->
+        <td><img src="UAT_Space.jpg"></td>  <!--this line creates a image with the image source being "UAT_space.jpg"-->
+        <td>
+            <h1 style="color: rgb(15, 15, 153); font-weight: bold;">    <!--this line gives the below text a blod bluish color-->
+                Welcome to the UAT Space Page
+            </h1>
+        </td>        
+    </table>
+    <br>    <!--NOTE: these <br> lines creates spacing between objects on the page-->
+    <br>
+    <!--
+        Audio code begins here (NOTE: i was unable to have the audio automatically play upon page load due to google restrictions)
+    -->
+    <img id="mutebutton" src="soundOFF.png" onclick="muteFun()"> <!--this line creates a image of a pause button which interacts to the function muteFun() upon clicking the image-->
+    <audio id="backgroundaudio" loop>   <!--this loops the audio-->
+        <source src="spacesound.mp3" type="audio/mpeg"> <!--this line gets the source of the audio-->
+    </audio>
+    <!--
+        Audio code ends here
+    -->
+    <br>
+    <!--
+        This is the beginning of the live data table
+    -->
+    <table id="data" border="2" width="70%">   <!--this line creates the table with a border thickness of 2 and a width of 70%-->
+        <col style="width: 35%">    <!--this along with the line below gives the each column the width of 35%-->
+        <col style="width: 35%">
+        <thead> <!--this creates the text for the two different columns of the table-->
+            <th>Data Type</th>
+            <th>Reading</th>
+        </thead>
+        <!--the the following lines creates the ids for each line of the data table-->
+        <tr id="time_seconds">
+        <tr id="latitude">
+        <tr id="longitude">
+        <tr id="gps_altitude">
+        <tr id="bmp_altitude">
+        <tr id="bmp_pressure">
+        <tr id="bmp_temperature">
+        <tr id="dig_temperature">
+        <tr id="css_temperature">
+        <tr id="css_eco2">
+        <tr id="css_tvoc">
+        <tr id="uv">
+        <tr id="accelx">
+        <tr id="accely">
+        <tr id="accelz">
+        <tr id="magneticx">
+        <tr id="magneticy">
+        <tr id="magneticz">
+        <tr id="gyrox">
+        <tr id="gyroy">
+        <tr id="gyroz">
+    </table>
+    <!--
+        This is the end of the live data table
+    -->
+    <br>
+    <br>
+    <!--below displays the users current local time in 24 hour format upon clicking the Start button-->
+    The current Time is: <div id="clockTime"> Press Start to display current time</div><br>
+    <br>
+    <br>
+    <button class="startbutton" id="startButton" onclick="startFun();">Start</button> <!--this line creates the Start button, upon clicking this button, the startFun() is initialized-->
+    <button class="stopbutton" id="stopButton" onclick="stopFun();">Stop</button> <!--this line creates the Stop button, upon clicking this button, the stopFun() is initialized-->
+    <br>
+    <br>
+    <h2>Craps game</h2> <!--this line creates the text "Craps game" with the h2 font-->
+    <div id="die1Res">Die 1 Result</div><br>    <!--this div displays the text Die 1 Result whilst assigning the id die1Res-->
+    <div id="die2Res">Die 2 Result</div><br>    <!--this div displays the text Die 2 Result whilst assigning the id die2Res-->
+    <div id="diceSum">Sum of Die 1 and Die 2</div><br>  <!--this div displays the text Sum of Die 1 and Die 2 whilst assigning the id diceSum-->
+    <div id="gameRes">Game Result</div><br>     <!--this div displays the text Game Result whilst assigning the id gameRes-->
+    <button onclick="playCraps()">Play Craps!</button><br>  <!--this line creates a button with text inside displaying "Play Craps!", upon clicking the button, the function playCraps() is called-->
+    <br>
+    <div class="winClass">wins<br></div>    <!--this displays the text "wins" whilst assigning it the winClass-->
+    <div id="winsRes">0</div><br>   <!--this line calls upon the winsRes id with the default text displaying 0-->
+    <br>
+    <div class="lossClass">losses<br></div>  <!--this displays the text "losses" whilst assigning it the lossClass-->
+    <div id="losesRes">0</div><br>  <!--this line calls upon the losesRes id with the default text displaying 0-->
+    <br>
+    <div class="drawClass">draws<br></div>  <!--this displays the text "draws" whilst assigning it the drawClass-->
+    <div id="drawsRes">0</div><br>  <!--this line calls upon the drawsRes id with the default text displaying 0-->
+    <br>
+    <!--
+        Sandbox area, was just a place for me to mess around with
+    -->
+    <h3>Sandbox</h3>    <!--sandbox text with h3 font-->
+    <br>
+    <div id="sandboxText">Text to play with</div>   <!--this line displays Text to play with whilst assigning it the sandboxText id-->
+    <!--below script creates variables and uses boolean expressions for a reason that I do not currently know as of now-->
+    <script>
+        var phunText1 = "This is my ";  //creates a variable called phunText1 whilst displaying the text "This is my "
+        var phunText2 = "phun text.";   //creates a variable called phunText2 whilst dislaying the text "phun text."
+        var i = 6;  //creates a variable i and gives it the following value of 6
+        var j = 7;  //creates a variable j and gives it the following value of 7
+        var exp = 6 ** 2;   //creates a variable exp and gives it the variable of 6 times 2
+        exp--;  //variable exp undefined
+        var evenTest = exp % 2; //creats the variable evenTest and makes it equal the value of what the variable exp equals to the modulus operator of 2
+    </script>
+    <!--work with the class stuff-->
+    <script>
+        //define some objects
+        var smSquare = new Rectangle(5, 5, 1, 7);   //creates the variable smSquare which creates a small rectangle
+        var lgRect = new Rectangle(12, 17, 2, 6);   //creates the variable lgRect which creates a large rectangle
+    </script>
+    <!--
+        Sandbox area ends
+    -->
+<br>
+<br>
+    <Button>Calculate smSquareArea</Button> <!--creates a button with the given text displaying within it, it doesn't do anything as of yet-->
+</body>
+<!--end of page code-->
+</html>
